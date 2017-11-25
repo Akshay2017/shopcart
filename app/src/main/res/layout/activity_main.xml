@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.akshay.cart.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:id="@+id/pname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/pquntity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/pname"
+            android:layout_alignStart="@+id/pname"
+            android:layout_below="@+id/pname"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Quntity"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/padd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/cart"
+            android:layout_alignRight="@+id/cart"
+            android:layout_below="@+id/pprice"
+            android:layout_marginTop="44dp"
+            android:text="Add Product" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/padd"
+            android:layout_alignBottom="@+id/padd"
+            android:layout_alignLeft="@+id/dpb"
+            android:layout_alignStart="@+id/dpb"
+            android:text="Dispaly Product" />
+
+        <Button
+            android:id="@+id/cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/dpb"
+            android:layout_alignBottom="@+id/dpb"
+            android:layout_alignLeft="@+id/pprice"
+            android:layout_alignStart="@+id/pprice"
+            android:text="Cart" />
+
+        <EditText
+            android:id="@+id/pprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/pquntity"
+            android:layout_alignStart="@+id/pquntity"
+            android:layout_below="@+id/pquntity"
+            android:layout_marginTop="42dp"
+            android:ems="10"
+            android:hint="Price"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/dpb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/pprice"
+            android:layout_alignRight="@+id/pprice"
+            android:layout_below="@+id/button2"
+            android:layout_marginTop="56dp"
+            android:text="single cart" />
+
+
+    </RelativeLayout>
+
+
+</ScrollView>
