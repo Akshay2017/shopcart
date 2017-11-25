@@ -1,4 +1,4 @@
-package com.example.akshay.cart;
+package com.example.akshay.cart.Registration;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,13 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
+
+import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
+import com.example.akshay.cart.InputValidation.InputValidation;
+import com.example.akshay.cart.Login.LoginActivity;
+import com.example.akshay.cart.Model.User;
+import com.example.akshay.cart.R;
 
 /**
  * Created by delaroy on 3/27/17.
@@ -38,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private User user;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
@@ -50,12 +55,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i = new Intent(RegisterActivity.this , LoginActivity.class);
+        Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
         finish();
         startActivity(i);
     }
 
-    private void initViews(){
+    private void initViews() {
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
 
         textInputLayoutName = (TextInputLayout) findViewById(R.id.textInputLayoutName);
@@ -73,19 +78,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void initListeners(){
+    private void initListeners() {
         appCompatButtonRegister.setOnClickListener(this);
     }
 
-    private void initObjects(){
+    private void initObjects() {
         inputValidation = new InputValidation(activity);
         databaseHelper = new DatabaseHelper(activity);
         user = new User();
     }
 
     @Override
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.appCompatButtonRegister:
                 postDataToSQLite();
                 break;
@@ -93,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void postDataToSQLite(){
+    private void postDataToSQLite() {
         if (!inputValidation.isInputEditTextFilled(textInputEditTextName, textInputLayoutName, getString(R.string.error_message_name))) {
             return;
         }
@@ -113,7 +118,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if (!databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim())) {
 
-            user.setFullname(textInputEditTextName.getText().toString().trim());
+            user.setUsername(textInputEditTextName.getText().toString().trim());
             user.setUsername(textInputEditTextEmail.getText().toString().trim());
             user.setPassword(textInputEditTextPassword.getText().toString().trim());
 
@@ -132,7 +137,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void emptyInputEditText(){
+    private void emptyInputEditText() {
         textInputEditTextName.setText(null);
         textInputEditTextEmail.setText(null);
         textInputEditTextPassword.setText(null);

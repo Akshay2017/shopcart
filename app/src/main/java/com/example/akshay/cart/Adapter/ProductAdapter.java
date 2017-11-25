@@ -1,4 +1,4 @@
-package com.example.akshay.cart;
+package com.example.akshay.cart.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +9,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
+import com.example.akshay.cart.Model.CartModel;
+import com.example.akshay.cart.Model.ProductModel;
+import com.example.akshay.cart.Activity.ProductDispaly;
+import com.example.akshay.cart.R;
+import com.example.akshay.cart.InterfaceListener.UpdateDatabaseListener;
 
 import java.util.ArrayList;
 
@@ -24,29 +31,25 @@ public class ProductAdapter extends BaseAdapter {
     ProductDispaly productDispaly;
     UpdateDatabaseListener mUpadteProductDBListener;
     CartModel cartModel;
-    SharedPreferences pref ;
     int uid;
 
 
-
-
-
     private static final String TAG = "Adapter";
+
     public ProductAdapter(Context context, ArrayList<ProductModel> arrayList, int uid) {
-        this.mContext=context;
-        this.mArrayList=arrayList;
-        this.pdb =new DatabaseHelper(context);
-        this.productDispaly=new ProductDispaly();
-        this.cartModel=new CartModel();
-        this.pref=context.getSharedPreferences("MyPref", 0);
-        this.uid=uid;
+        this.mContext = context;
+        this.mArrayList = arrayList;
+        this.pdb = new DatabaseHelper(context);
+        this.productDispaly = new ProductDispaly();
+        this.cartModel = new CartModel();
+        this.uid = uid;
 
     }
 
     @Override
     public int getCount() {
 
-        Log.d(TAG, "count :  " + mArrayList.size() );
+        Log.d(TAG, "count :  " + mArrayList.size());
         return mArrayList.size();
     }
 
@@ -54,8 +57,8 @@ public class ProductAdapter extends BaseAdapter {
     public Object getItem(int i) {
 
 
-        Log.d(TAG, "items :  " + mArrayList.get(i) );
-         return mArrayList.get(i);
+        Log.d(TAG, "items :  " + mArrayList.get(i));
+        return mArrayList.get(i);
     }
 
     @Override
@@ -85,10 +88,9 @@ public class ProductAdapter extends BaseAdapter {
         }
 
 
+        ProductModel ma = (ProductModel) getItem(i);
 
-         ProductModel ma = (ProductModel) getItem(i);
-
-        if (ma != null){
+        if (ma != null) {
 
 
             viewHolder.name.setText(ma.getPname().toString());
@@ -100,15 +102,13 @@ public class ProductAdapter extends BaseAdapter {
                 public void onClick(View view) {
 
                     ProductModel productModel = (ProductModel) getItem(i);
-                    int pid= Integer.parseInt(String.valueOf(productModel.getPid()));
-                    int pquntity= Integer.parseInt(productModel.getPquentity());
+                    int pid = Integer.parseInt(String.valueOf(productModel.getPid()));
+                    int pquntity = Integer.parseInt(productModel.getPquentity());
 
-                    int cpq=1;
+                    int cpq = 1;
                     int updateinproduct = pquntity - cpq;
 
-                    //Insert data in cart
-
-
+                    //Inserting data in cart table
                     cartModel.setUid(uid);
                     cartModel.setpId(pid);
                     cartModel.setQunatity(cpq);
@@ -119,12 +119,9 @@ public class ProductAdapter extends BaseAdapter {
                     pdb.updateData(productModel);
                     notifyDataSetChanged();
 
-
+                    //get total count added cart product and pass to interface listener
 //                    int  count = pdb.getCartCount();
-//                    Log.d(TAG, "onClick: " + count);
 //                    mUpadteProductDBListener.counttotalcartproduct(count);
-
-
 
 
                     viewHolder.addtocart.setEnabled(false);
@@ -150,9 +147,9 @@ public class ProductAdapter extends BaseAdapter {
 
     }
 
-    public void setUpadteProductDBListener(UpdateDatabaseListener upadteProductDB){
+    public void setUpadteProductDBListener(UpdateDatabaseListener upadteProductDB) {
 
-       this.mUpadteProductDBListener=upadteProductDB;
+        this.mUpadteProductDBListener = upadteProductDB;
     }
 
 }

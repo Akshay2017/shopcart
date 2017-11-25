@@ -1,10 +1,10 @@
-package com.example.akshay.cart;
+package com.example.akshay.cart.Model;
 
 /**
  * Created by Akshay on 11/15/2017.
  */
 
-class ProductModel {
+public class ProductModel {
     String pid;
     String pname;
     String pquentity;

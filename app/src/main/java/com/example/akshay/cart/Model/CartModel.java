@@ -1,12 +1,21 @@
-package com.example.akshay.cart;
+package com.example.akshay.cart.Model;
+
+import com.example.akshay.cart.Model.ProductModel;
 
 /**
  * Created by Akshay on 11/15/2017.
  */
 
-class CartModel {
+public class CartModel {
     int cId;
     int uid;
+    int pId;
+    int qunatity;
+    ProductModel productModel;
+
+    public CartModel() {
+
+    }
 
     public int getUid() {
         return uid;
@@ -14,15 +23,6 @@ class CartModel {
 
     public void setUid(int uid) {
         this.uid = uid;
-    }
-
-    int pId;
-    int qunatity;
-    ProductModel productModel;
-
-
-    public CartModel() {
-
     }
 
     public int getcId() {

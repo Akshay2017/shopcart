@@ -4,11 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.akshay.cart.MainActivity">
+    tools:context="com.example.akshay.cart.AddData.AddProduct">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
 
 
         <EditText
@@ -34,35 +35,6 @@
             android:hint="Quntity"
             android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/padd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/cart"
-            android:layout_alignRight="@+id/cart"
-            android:layout_below="@+id/pprice"
-            android:layout_marginTop="44dp"
-            android:text="Add Product" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/padd"
-            android:layout_alignBottom="@+id/padd"
-            android:layout_alignLeft="@+id/dpb"
-            android:layout_alignStart="@+id/dpb"
-            android:text="Dispaly Product" />
-
-        <Button
-            android:id="@+id/cart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/dpb"
-            android:layout_alignBottom="@+id/dpb"
-            android:layout_alignLeft="@+id/pprice"
-            android:layout_alignStart="@+id/pprice"
-            android:text="Cart" />
 
         <EditText
             android:id="@+id/pprice"
@@ -77,14 +49,14 @@
             android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/dpb"
+            android:id="@+id/padd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/pprice"
-            android:layout_alignRight="@+id/pprice"
-            android:layout_below="@+id/button2"
-            android:layout_marginTop="56dp"
-            android:text="single cart" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/pprice"
+            android:layout_marginTop="25dp"
+            android:text="Add Product" />
 
 
     </RelativeLayout>

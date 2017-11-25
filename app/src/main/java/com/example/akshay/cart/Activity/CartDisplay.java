@@ -1,9 +1,7 @@
-package com.example.akshay.cart;
+package com.example.akshay.cart.Activity;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +12,13 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.akshay.cart.Adapter.CartAdapter;
+import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
+import com.example.akshay.cart.Login.LoginActivity;
+import com.example.akshay.cart.Model.CartModel;
+import com.example.akshay.cart.R;
+import com.example.akshay.cart.Session.Session;
+
 import java.util.ArrayList;
 
 public class CartDisplay extends AppCompatActivity {
@@ -22,53 +27,53 @@ public class CartDisplay extends AppCompatActivity {
     Context mContext;
     DatabaseHelper databaseHelper;
     SharedPreferences sharedPreferences;
-    private ImageView back;
     Session session;
-    private static final String TAG = "cartdata";
     SharedPreferences.Editor editor;
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        registerReceiver(broadcastReceiver,new IntentFilter("is increment"));
-//    }
+
+    private static final String TAG = "cartdata";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_display);
-        listView=findViewById(R.id.itemlist);
+        listView = findViewById(R.id.itemlist);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbarcart);
         setSupportActionBar(toolbar);
-        arrayList=new ArrayList<>();
-        mContext=CartDisplay.this;
-        back=findViewById(R.id.back);
-        session=new Session(this);
-        if (!session.loggedin()){
+        arrayList = new ArrayList<>();
+        mContext = CartDisplay.this;
+        session = new Session(this);
+
+        if (!session.loggedin()) {
             logout();
         }
-        databaseHelper=new DatabaseHelper(mContext);
 
+        databaseHelper = new DatabaseHelper(mContext);
+
+        //retrive user email using sharedPreferences
         sharedPreferences = getApplicationContext().getSharedPreferences("MyPref", 0);
-        String un=sharedPreferences.getString("username","");
-        int userid=databaseHelper.getuserid(un);
-        Log.d(TAG,"uid " + userid);
-        arrayList =databaseHelper.getAllCARTProduct(userid);
+        String un = sharedPreferences.getString("useremail", "");
 
+        //get user id
+        int userid = databaseHelper.getuserid(un);
+        Log.d(TAG, "uid " + userid);
 
-        listView.setAdapter(new CartAdapter(mContext,arrayList));
+        //get all joined table data to diaplay
+        arrayList = databaseHelper.getAllCARTProduct(userid);
+
+        listView.setAdapter(new CartAdapter(mContext, arrayList));
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.menucart,menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menucart, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.logout){
+        if (item.getItemId() == R.id.logout) {
             logout();
 
         }
@@ -79,18 +84,7 @@ public class CartDisplay extends AppCompatActivity {
         session.setLoggedin(false);
         editor.clear(); // will delete key name
         editor.commit();
-        startActivity(new Intent(CartDisplay.this,LoginActivity.class));
+        startActivity(new Intent(CartDisplay.this, LoginActivity.class));
     }
-//BroadcastReceiver broadcastReceiver=new BroadcastReceiver() {
-//    @Override
-//    public void onReceive(Context context, Intent intent) {
-//
-//            String quntity=intent.getStringExtra("quntity");
-//            String id=intent.getStringExtra("id");
-//
-//
-//    }
-//};
-
 
 }

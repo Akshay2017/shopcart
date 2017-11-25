@@ -1,4 +1,4 @@
-package com.example.akshay.cart;
+package com.example.akshay.cart.Login;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,10 +9,17 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
+import com.example.akshay.cart.InputValidation.InputValidation;
+import com.example.akshay.cart.AddData.AddProduct;
+import com.example.akshay.cart.Activity.ProductDispaly;
+import com.example.akshay.cart.R;
+import com.example.akshay.cart.Registration.RegisterActivity;
+import com.example.akshay.cart.Session.Session;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -51,7 +58,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initListeners();
         initObjects();
     }
-    private void initViews(){
+
+    private void initViews() {
         nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
 
         textInputLayoutEmail = (TextInputLayout) findViewById(R.id.textInputLayoutEmail);
@@ -66,11 +74,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
 
-        b=findViewById(R.id.addddd);
+        b = findViewById(R.id.addddd);
 
-        session=new Session(this);
+        session = new Session(this);
 
-        if (session.loggedin()){
+        if (session.loggedin()) {
             Intent intent = new Intent(activity, ProductDispaly.class);
             startActivity(intent);
         }
@@ -78,20 +86,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void initListeners(){
+    private void initListeners() {
         appCompatButtonLogin.setOnClickListener(this);
         appCompatButtonSignup.setOnClickListener(this);
         b.setOnClickListener(this);
     }
 
-    private void initObjects(){
+    private void initObjects() {
         databaseHelper = new DatabaseHelper(activity);
         inputValidation = new InputValidation(activity);
     }
 
     @Override
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.appCompatButtonLogin:
                 verifyFromSQLite();
                 break;
@@ -100,14 +108,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intentRegister);
                 break;
             case R.id.addddd:
-                Intent in= new Intent(getApplicationContext(), MainActivity.class);
+                Intent in = new Intent(getApplicationContext(), AddProduct.class);
                 startActivity(in);
                 break;
 
         }
     }
 
-    private void verifyFromSQLite(){
+    private void verifyFromSQLite() {
         if (!inputValidation.isInputEditTextFilled(textInputEditTextEmail, textInputLayoutEmail, getString(R.string.error_message_email))) {
             return;
         }
@@ -121,19 +129,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (databaseHelper.checkUser(textInputEditTextEmail.getText().toString().trim()
                 , textInputEditTextPassword.getText().toString().trim())) {
 
-          int uid= databaseHelper.getuserid(textInputEditTextEmail.getText().toString().trim());
 
-                Log.d(TAG,"uid " + uid);
+            //get user id from database to further use (cart table) passing user email
+            int uid = databaseHelper.getuserid(textInputEditTextEmail.getText().toString().trim());
+            Log.d(TAG, "uid " + uid);
 
 
-              String username=textInputEditTextEmail.getText().toString().trim();
-              editor.putString("username",username);
-              editor.apply();
+            //storing user email in SharedPreferences to passing any activity fro use
+            String username = textInputEditTextEmail.getText().toString().trim();
+            editor.putString("useremail", username);
+            editor.apply();
 
+            //for loggedin
             session.setLoggedin(true);
 
+            //if email and password true go to product page
             Intent intent = new Intent(activity, ProductDispaly.class);
-//            intent.putExtra("username",uid);
             startActivity(intent);
 
         } else {
@@ -142,9 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
 
-
-
-    private void emptyInputEditText(){
+    private void emptyInputEditText() {
         textInputEditTextEmail.setText(null);
         textInputEditTextPassword.setText(null);
     }

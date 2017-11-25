@@ -1,4 +1,4 @@
-package com.example.akshay.cart;
+package com.example.akshay.cart.Model;
 
 /**
  * Created by delaroy on 3/27/17.
@@ -6,24 +6,24 @@ package com.example.akshay.cart;
 public class User {
 
     private int id;
-    private String fullname;
     private String username;
+    private String useremail;
     private String password;
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getUseremail() {
+        return useremail;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
+    public void setUseremail(String useremail) {
+        this.useremail = useremail;
     }
 
     public String getUsername() {
@@ -34,11 +34,11 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword(){
-       return password;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassword(String password){
+    public void setPassword(String password) {
         this.password = password;
     }
 }
