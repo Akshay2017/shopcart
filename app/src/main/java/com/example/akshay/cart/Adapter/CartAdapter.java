@@ -16,6 +16,8 @@ import com.example.akshay.cart.R;
 
 import java.util.ArrayList;
 
+import at.markushi.ui.CircleButton;
+
 /**
  * Created by Akshay on 11/16/2017.
  */
@@ -173,7 +175,6 @@ public class CartAdapter extends BaseAdapter {
         private TextView name;
         private TextView quentity;
         private TextView price;
-        private Button increment, decriment, detet;
-
+        private CircleButton increment, decriment, detet;
     }
 }

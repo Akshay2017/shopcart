@@ -39,6 +39,7 @@ public class CartDisplay extends AppCompatActivity {
         listView = findViewById(R.id.itemlist);
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbarcart);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         arrayList = new ArrayList<>();
         mContext = CartDisplay.this;
         session = new Session(this);

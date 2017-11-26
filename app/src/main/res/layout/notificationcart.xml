@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/carticon"
-        android:layout_width="60dp"
-        android:layout_height="50dp"
+        android:layout_width="58dp"
+        android:layout_height="48dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -15,8 +15,8 @@
 
     <ImageView
         android:id="@+id/countiv"
-        android:layout_width="20dp"
-        android:layout_height="25dp"
+        android:layout_width="19dp"
+        android:layout_height="23dp"
         android:layout_alignEnd="@+id/carticon"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/carticon"
@@ -28,8 +28,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="1"
-        android:layout_marginLeft="46.5dp"
-        android:layout_marginTop="2.6dp"
+        android:layout_marginLeft="44.6dp"
+        android:layout_marginTop="2.2dp"
         android:textColor="@color/colorText"
         android:id="@+id/counttv" />
 

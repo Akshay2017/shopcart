@@ -15,10 +15,9 @@
         android:id="@+id/itemlist"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/linearLayoutCart"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/toolbarcart"
+        android:layout_below="@+id/toolbarcart"
         tools:listitem="@layout/item" />
 
     <LinearLayout
@@ -43,7 +42,6 @@
             android:gravity="center"/>
 
         <TextView
-
             android:id="@+id/cart_total_tv"
             android:layout_width="0dp"
             android:layout_height="70dp"
