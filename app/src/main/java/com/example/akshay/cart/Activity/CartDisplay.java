@@ -70,37 +70,10 @@ public class CartDisplay extends AppCompatActivity {
         cartAdapter= new CartAdapter(mContext, arrayList);
         cartAdapter.setUpadteProductDBListener(updateDatabaseListener);
         listView.setAdapter(cartAdapter);
-        checkPrizeAndChange();
-        cartAdapter.notifyDataSetChanged();
 
 
     }
 
-    private void checkPrizeAndChange() {
-        CartModel cartModel;
-        ProductModel productModel = new ProductModel();
-
-        for (int i = 0; i < arrayList.size(); i++) {
-            cartModel = arrayList.get(i);
-            int q = cartModel.getQunatity();
-
-            int price = cartModel.getProductModel().getPprice();
-
-            int total = q * price;
-
-            productModel.setPprice(total);
-          //  productModel.setPname(cartModel.getProductModel().getPname());
-            cartModel.setProductModel(productModel);
-
-        }
-//
-//        int pp=productModel.getPprice();
-//        for (int p = 0; p < pp ; p++) {
-//            int tp=pp;
-//            int pt= pp + tp ;
-//            Log.d(TAG, "pt " + pt);
-//        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

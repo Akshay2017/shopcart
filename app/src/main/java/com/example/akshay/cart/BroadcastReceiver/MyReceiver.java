@@ -3,18 +3,35 @@ package com.example.akshay.cart.BroadcastReceiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import com.example.akshay.cart.Activity.ProductDispaly;
 import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
+import com.example.akshay.cart.InterfaceListener.UpdateDatabaseListener;
+import com.example.akshay.cart.Model.ProductModel;
+
+import java.util.ArrayList;
 
 public class MyReceiver extends BroadcastReceiver {
 
     DatabaseHelper databaseHelper;
+    ArrayList<Integer> mCartPrize;
+    private UpdateDatabaseListener mUpdateDatabaseListener;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    DatabaseHelper pdb;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        mCartPrize = new ArrayList<>();
         databaseHelper = new DatabaseHelper(context);
+        sharedPreferences = context.getSharedPreferences("MyPref", 0);
+        editor = sharedPreferences.edit();
+        pdb = new DatabaseHelper(context);
+        if (context instanceof ProductDispaly) {
+            mUpdateDatabaseListener = (UpdateDatabaseListener) context;
+        }
         String action = intent.getAction();
 
         if (action.equals("is_increment")) {
@@ -23,32 +40,26 @@ public class MyReceiver extends BroadcastReceiver {
             int quntity = intent.getExtras().getInt("quntity");
             int id = intent.getExtras().getInt("id");
 
-            databaseHelper.incrementData(quntity, id);
+            int status = databaseHelper.incrementData(quntity, id);
+            if (mUpdateDatabaseListener != null) {
 
+//                String un = sharedPreferences.getString("useremail", "");
 
-            //Decrement
-            int pq = intent.getExtras().getInt("pqi");
-            int pid = intent.getExtras().getInt("pidi");
-
-            databaseHelper.incrementProductData(pq, pid);
-
+                //get user id
+//                int uid = pdb.getuserid(un);
+//                int  count = pdb.getCartCount(uid);
+//                mUpdateDatabaseListener.counttotalcartproduct(count);
+            }
             Toast.makeText(context, "Scessfull", Toast.LENGTH_SHORT).show();
 
 
         } else if (action.equals("is_decrement")) {
 
-            //Decrement
             int quntity = intent.getExtras().getInt("dquntity");
             int id = intent.getExtras().getInt("did");
 
             databaseHelper.decrimentData(quntity, id);
 
-
-            //Increment
-            int pq = intent.getExtras().getInt("pqd");
-            int pid = intent.getExtras().getInt("pidd");
-
-            databaseHelper.decrimentProductData(pq, pid);
             Toast.makeText(context, "Scessfull", Toast.LENGTH_SHORT).show();
 
 

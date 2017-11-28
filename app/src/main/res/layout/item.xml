@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginBottom="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="10dp"
@@ -20,58 +20,59 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/delete"
-            android:layout_marginBottom="13dp"
-            android:layout_toLeftOf="@+id/plue"
-            android:layout_toStartOf="@+id/plue"
+            android:layout_alignBaseline="@+id/minus"
+            android:layout_alignBottom="@+id/minus"
+            android:layout_toLeftOf="@+id/minus"
+            android:layout_toStartOf="@+id/minus"
             android:text="quntity" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/minus"
             android:layout_alignLeft="@+id/textView5"
+            android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/textView5"
+            android:layout_marginTop="12dp"
             android:text="price" />
 
 
-        <at.markushi.ui.CircleButton
+        <Button
             android:id="@+id/plue"
-            android:layout_width="48dip"
-            android:layout_height="48dip"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/minus"
-            android:layout_marginEnd="18dp"
-            android:layout_marginRight="18dp"
-            android:src="@drawable/ic_add_circle_black_24dp"
-            app:cb_color="#51d8c7"
-            app:cb_pressedRingWidth="8dip" />
-
-        <at.markushi.ui.CircleButton
-            android:id="@+id/minus"
-            android:layout_width="48dip"
-            android:layout_height="48dip"
-            android:layout_alignTop="@+id/textView5"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/textView11"
             android:layout_toLeftOf="@+id/textView6"
             android:layout_toStartOf="@+id/textView6"
-            android:src="@drawable/ic_indeterminate_check_box_black_24dp"
-            app:cb_color="#51d8c7"
-            app:cb_pressedRingWidth="8dip" />
+            android:background="@drawable/round"
+            android:text="+"
+            android:textSize="20sp" />
 
-        <at.markushi.ui.CircleButton
+        <Button
+            android:id="@+id/minus"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignBaseline="@+id/plue"
+            android:layout_alignBottom="@+id/plue"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="22dp"
+            android:layout_marginRight="22dp"
+            android:background="@drawable/round"
+            android:text="-"
+            android:textSize="20sp" />
+
+        <Button
             android:id="@+id/delete"
-            android:layout_width="48dip"
-            android:layout_height="48dip"
-            android:layout_alignLeft="@+id/textView6"
-            android:layout_alignStart="@+id/textView6"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_below="@+id/plue"
-            android:src="@drawable/ic_delete_black_24dp"
-            app:cb_color="#51d8c7"
-            app:cb_pressedRingWidth="8dip"
-            android:layout_marginBottom="5dp"/>
-
+            android:layout_marginTop="11dp"
+            android:layout_toLeftOf="@+id/minus"
+            android:layout_toStartOf="@+id/minus"
+            android:background="@drawable/round"
+            android:text="*"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView5"
@@ -79,10 +80,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_below="@+id/textView11"
+            android:layout_marginLeft="19dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="33dp"
             android:text="name" />
 
     </RelativeLayout>

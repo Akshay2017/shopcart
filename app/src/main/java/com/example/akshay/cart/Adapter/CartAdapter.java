@@ -114,22 +114,22 @@ public class CartAdapter extends BaseAdapter {
 
 
                 Intent intent1 = new Intent("is_increment");
+                CartModel cartModel= (CartModel) getItem(i);
+                intent1.putExtra("postion", i);
+                Log.d(TAG, "onClick: postion" + i);
 
                 //Increment
                 intent1.putExtra("quntity", updateinproduct);
                 intent1.putExtra("id", pid);
 
-                //Decrement
-                intent1.putExtra("pqi", upd);
-                intent1.putExtra("pidi", pid);
-
                 //change dyanamiclly in  listview upadted quntity
-                CartModel cartModel = (CartModel) getItem(i);
                 cartModel.setQunatity(cartModel.getQunatity() + 1);
 
                 //send intent values to broadcast
                 mContext.sendBroadcast(intent1);
-                mUpadteProductDBListener.pricecartupadte(i);
+
+               mUpadteProductDBListener.pricecartupadte(i);
+
                 notifyDataSetChanged();
             }
         });
@@ -140,13 +140,11 @@ public class CartAdapter extends BaseAdapter {
 
                 Intent intent2 = new Intent("is_decrement");
 
+                intent2.putExtra("postion",i);
+
                 //Decrement
                 intent2.putExtra("dquntity", updatedeproduct);
                 intent2.putExtra("did", pid);
-
-                //Increment
-                intent2.putExtra("pqd", upi);
-                intent2.putExtra("pidd", pid);
 
                 //change dyanamicly in  listview upadted quntity
                 CartModel cartModel = (CartModel) getItem(i);
@@ -156,17 +154,6 @@ public class CartAdapter extends BaseAdapter {
 
                 //send intent values to broadcast
                 mContext.sendBroadcast(intent2);
-
-                int q=cartModel.getQunatity();
-
-                int price= cartModel.getProductModel().getPprice();
-                int total=q * price;
-
-                ProductModel productModel= new ProductModel();
-                productModel.setPprice(total);
-                productModel.setPname(cartModel.getProductModel().getPname());
-                cartModel.setProductModel(productModel);
-                Log.d(TAG, "onClick: total de" + total);
 
                 notifyDataSetChanged();
             }
@@ -193,7 +180,7 @@ public class CartAdapter extends BaseAdapter {
         private TextView name;
         private TextView quentity;
         private TextView price;
-        private CircleButton increment, decriment, detet;
+        private Button increment, decriment, detet;
     }
 
     public void setUpadteProductDBListener(UpdateDatabaseListener upadteProductDB) {

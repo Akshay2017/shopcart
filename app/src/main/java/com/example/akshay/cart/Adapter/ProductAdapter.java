@@ -32,6 +32,8 @@ public class ProductAdapter extends BaseAdapter {
     UpdateDatabaseListener mUpadteProductDBListener;
     CartModel cartModel;
     int uid;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
 
     private static final String TAG = "Adapter";
@@ -43,6 +45,8 @@ public class ProductAdapter extends BaseAdapter {
         this.productDispaly = new ProductDispaly();
         this.cartModel = new CartModel();
         this.uid = uid;
+        this.sharedPreferences = context.getSharedPreferences("MyPref", 0);
+        this.editor = sharedPreferences.edit();
 
     }
 
@@ -119,9 +123,15 @@ public class ProductAdapter extends BaseAdapter {
                     pdb.updateData(productModel);
                     notifyDataSetChanged();
 
+
+                    String un = sharedPreferences.getString("useremail", "");
+
+                    //get user id
+                    int uid = pdb.getuserid(un);
                     //get total count added cart product and pass to interface listener
-//                    int  count = pdb.getCartCount();
-//                    mUpadteProductDBListener.counttotalcartproduct(count);
+                    int  count = pdb.getCartCount(uid);
+                    mUpadteProductDBListener.counttotalcartproduct(count);
+                    Log.d(TAG, "counttttttttttt: " + count);
 
 
                     viewHolder.addtocart.setEnabled(false);

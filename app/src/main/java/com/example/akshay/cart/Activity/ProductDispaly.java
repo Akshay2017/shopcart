@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,12 +30,15 @@ public class ProductDispaly extends AppCompatActivity {
     Context mContext;
     DatabaseHelper databaseHelper;
     ProductAdapter productAdapter;
-    private TextView textView;
+
     Session session;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+    ImageView imageView;
+    TextView menutextView;
 
     private static final String TAG = "productdata";
+    private int counts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,6 @@ public class ProductDispaly extends AppCompatActivity {
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        textView = findViewById(R.id.count);
         databaseHelper = new DatabaseHelper(mContext);
 
         //retrive user email using sharedPreferences
@@ -69,28 +72,38 @@ public class ProductDispaly extends AppCompatActivity {
         arrayList = databaseHelper.getAllProduct();
 
         //count cart total row to display
-        int counts = databaseHelper.getCartCount(uid);
+         counts = databaseHelper.getCartCount(uid);
 
-        // when click on the count textview navigate to CartDisplay Activity
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ProductDispaly.this, CartDisplay.class);
-                startActivity(intent);
-            }
-        });
+
 
         productAdapter = new ProductAdapter(mContext, arrayList, uid);
         productAdapter.setUpadteProductDBListener(updateDatabaseListener);
 
         listView.setAdapter(productAdapter);
-        textView.setText(Integer.toString(counts));
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu, menu);
+
+        MenuItem m=menu.findItem(R.id.notification);
+        View view=m.getActionView();
+        if (view != null){
+            imageView=view.findViewById(R.id.carticon);
+            menutextView=view.findViewById(R.id.counttv);
+        }
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductDispaly.this, CartDisplay.class));
+            }
+        });
+
+     menutextView.setText(""+counts);
+
         return true;
     }
 
@@ -102,7 +115,7 @@ public class ProductDispaly extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.notification) {
 
-            startActivity(new Intent(ProductDispaly.this, CartDisplay.class));
+
 
         }
         return super.onOptionsItemSelected(item);
@@ -120,7 +133,8 @@ public class ProductDispaly extends AppCompatActivity {
 
         @Override
         public void counttotalcartproduct(int count) {
-            textView.setText(Integer.toString(count));
+            Log.d(TAG, " inside counttoatoal() -> count : " + count);
+            menutextView.setText(""+count);
         }
 
         @Override

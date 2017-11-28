@@ -31,6 +31,10 @@
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".Fragments.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

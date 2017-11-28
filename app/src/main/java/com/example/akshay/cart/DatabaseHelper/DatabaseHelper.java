@@ -153,9 +153,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null);
-        if (cursor != null)
+             if (cursor != null)
             cursor.moveToFirst();
-
         int cursorCount = cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID));
         cursor.close();
         return cursorCount;
@@ -412,6 +411,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return database.delete(TABLE_CART,"cid = ?",new String[] {String.valueOf(id)});
 
+
+    }
+
+    public ArrayList<CartModel> getAllPrize(int userId) {
+        ArrayList<CartModel> cartList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_CART
+                + " JOIN " + TABLE_PRODUCTS
+                + " ON " + CPID + " = " + PID + " JOIN " + TABLE_USER
+                + " ON " + COLUMN_USER_ID + " = " + CUID + " WHERE " + CUID + " = " + userId;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null && cursor.moveToNext()) {
+            do {
+                CartModel cart = new CartModel();
+
+                ProductModel productModel = new ProductModel();
+                productModel.setPprice(cursor.getInt(cursor.getColumnIndex(PPRICE)));
+
+                cart.setProductModel(productModel);
+
+                cartList.add(cart);
+            } while (cursor.moveToNext());
+        }
+
+
+        cursor.close();
+        db.close();
+        return cartList;
 
     }
 
