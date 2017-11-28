@@ -7,14 +7,14 @@ package com.example.akshay.cart.Model;
 public class ProductModel {
     String pid;
     String pname;
-    String pquentity;
-    String pprice;
+    int pquentity;
+    int pprice;
 
-    public String getPprice() {
+    public int getPprice() {
         return pprice;
     }
 
-    public void setPprice(String pprice) {
+    public void setPprice(int pprice) {
         this.pprice = pprice;
     }
 
@@ -44,11 +44,11 @@ public class ProductModel {
         this.pname = pname;
     }
 
-    public String getPquentity() {
+    public int getPquentity() {
         return pquentity;
     }
 
-    public void setPquentity(String pquentity) {
+    public void setPquentity(int pquentity) {
         this.pquentity = pquentity;
     }
 }

@@ -6,4 +6,5 @@ package com.example.akshay.cart.InterfaceListener;
 
 public interface UpdateDatabaseListener {
     void counttotalcartproduct(int count);
+    void pricecartupadte(int i);
 }

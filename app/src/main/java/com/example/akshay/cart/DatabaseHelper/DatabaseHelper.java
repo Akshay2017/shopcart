@@ -219,8 +219,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ProductModel product = new ProductModel();
             product.setPid(cursor.getString(cursor.getColumnIndex(PID)));
             product.setPname(cursor.getString(cursor.getColumnIndex(PNAME)));
-            product.setPquentity(cursor.getString(cursor.getColumnIndex(PQUNTITY)));
-            product.setPprice(cursor.getString(cursor.getColumnIndex(PPRICE)));
+            product.setPquentity(cursor.getInt(cursor.getColumnIndex(PQUNTITY)));
+            product.setPprice(cursor.getInt(cursor.getColumnIndex(PPRICE)));
 
             productList.add(product);
         }
@@ -253,9 +253,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cart.setpId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(CPID))));
                 cart.setQunatity(cursor.getInt(cursor.getColumnIndex(CPQUNTITY)));
                 ProductModel productModel = new ProductModel();
-                productModel.setPprice(cursor.getString(cursor.getColumnIndex(PPRICE)));
+                productModel.setPprice(cursor.getInt(cursor.getColumnIndex(PPRICE)));
                 productModel.setPname(cursor.getString(cursor.getColumnIndex(PNAME)));
-                productModel.setPquentity(cursor.getString(cursor.getColumnIndex(PQUNTITY)));
+                productModel.setPquentity(cursor.getInt(cursor.getColumnIndex(PQUNTITY)));
                 cart.setProductModel(productModel);
 
                 cartList.add(cart);
@@ -414,6 +414,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     }
-
 
 }

@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
+import com.example.akshay.cart.InterfaceListener.UpdateDatabaseListener;
 import com.example.akshay.cart.Model.CartModel;
+import com.example.akshay.cart.Model.ProductModel;
 import com.example.akshay.cart.R;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class CartAdapter extends BaseAdapter {
     private ArrayList<CartModel> mArrayList;
     private Context mContext;
     DatabaseHelper pdb;
+    UpdateDatabaseListener mUpadteProductDBListener;
     private static final String TAG = "CartAdapter";
 
 
@@ -54,7 +57,7 @@ public class CartAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        CartAdapter.ViewHolder viewHolder;
+        final CartAdapter.ViewHolder viewHolder;
         if (view == null) {
 
             view = LayoutInflater.from(mContext).inflate(R.layout.item, viewGroup, false);
@@ -93,7 +96,7 @@ public class CartAdapter extends BaseAdapter {
         final int updateinproduct = pquntity + cpq;
 
         //Decrement in product (Product table)
-        final int pqd = Integer.parseInt(ma.getProductModel().getPquentity());
+        final int pqd = ma.getProductModel().getPquentity();
         final int upd = pqd - cpq;
 
 
@@ -101,12 +104,14 @@ public class CartAdapter extends BaseAdapter {
         final int updatedeproduct = pquntity - cpq;
 
         //Increment in product (Product table)
-        final int pqi = Integer.parseInt(ma.getProductModel().getPquentity());
+        final int pqi = ma.getProductModel().getPquentity();
         final int upi = pqi + cpq;
+
 
         viewHolder.increment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 Intent intent1 = new Intent("is_increment");
 
@@ -124,7 +129,7 @@ public class CartAdapter extends BaseAdapter {
 
                 //send intent values to broadcast
                 mContext.sendBroadcast(intent1);
-
+                mUpadteProductDBListener.pricecartupadte(i);
                 notifyDataSetChanged();
             }
         });
@@ -147,8 +152,21 @@ public class CartAdapter extends BaseAdapter {
                 CartModel cartModel = (CartModel) getItem(i);
                 cartModel.setQunatity(cartModel.getQunatity() - 1);
 
+
+
                 //send intent values to broadcast
                 mContext.sendBroadcast(intent2);
+
+                int q=cartModel.getQunatity();
+
+                int price= cartModel.getProductModel().getPprice();
+                int total=q * price;
+
+                ProductModel productModel= new ProductModel();
+                productModel.setPprice(total);
+                productModel.setPname(cartModel.getProductModel().getPname());
+                cartModel.setProductModel(productModel);
+                Log.d(TAG, "onClick: total de" + total);
 
                 notifyDataSetChanged();
             }
@@ -176,5 +194,10 @@ public class CartAdapter extends BaseAdapter {
         private TextView quentity;
         private TextView price;
         private CircleButton increment, decriment, detet;
+    }
+
+    public void setUpadteProductDBListener(UpdateDatabaseListener upadteProductDB) {
+
+        this.mUpadteProductDBListener = upadteProductDB;
     }
 }

@@ -101,6 +101,7 @@ public class ProductDispaly extends AppCompatActivity {
 
         }
         if (item.getItemId() == R.id.notification) {
+
             startActivity(new Intent(ProductDispaly.this, CartDisplay.class));
 
         }
@@ -119,7 +120,12 @@ public class ProductDispaly extends AppCompatActivity {
 
         @Override
         public void counttotalcartproduct(int count) {
-            // textView.setText(Integer.toString(count));
+            textView.setText(Integer.toString(count));
+        }
+
+        @Override
+        public void pricecartupadte(int i) {
+
         }
     };
 

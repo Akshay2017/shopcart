@@ -103,7 +103,7 @@ public class ProductAdapter extends BaseAdapter {
 
                     ProductModel productModel = (ProductModel) getItem(i);
                     int pid = Integer.parseInt(String.valueOf(productModel.getPid()));
-                    int pquntity = Integer.parseInt(productModel.getPquentity());
+                    int pquntity = productModel.getPquentity();
 
                     int cpq = 1;
                     int updateinproduct = pquntity - cpq;
@@ -115,7 +115,7 @@ public class ProductAdapter extends BaseAdapter {
                     pdb.insertcart(cartModel);
 
                     //Upadte data in product to disply live
-                    productModel.setPquentity(String.valueOf(updateinproduct));
+                    productModel.setPquentity(updateinproduct);
                     pdb.updateData(productModel);
                     notifyDataSetChanged();
 

@@ -41,8 +41,8 @@ public class AddProduct extends AppCompatActivity {
 
 
                 productModel.setPname(pname.getText().toString().trim());
-                productModel.setPquentity(pquntity.getText().toString().trim());
-                productModel.setPprice(pprice.getText().toString().trim());
+                productModel.setPquentity(Integer.parseInt(pquntity.getText().toString().trim()));
+                productModel.setPprice(Integer.parseInt(pprice.getText().toString().trim()));
 
                 boolean insertdt = pdb.insertdata(productModel);
 

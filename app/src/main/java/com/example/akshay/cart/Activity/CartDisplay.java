@@ -11,11 +11,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.akshay.cart.Adapter.CartAdapter;
 import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
+import com.example.akshay.cart.InterfaceListener.UpdateDatabaseListener;
 import com.example.akshay.cart.Login.LoginActivity;
 import com.example.akshay.cart.Model.CartModel;
+import com.example.akshay.cart.Model.ProductModel;
 import com.example.akshay.cart.R;
 import com.example.akshay.cart.Session.Session;
 
@@ -29,6 +32,8 @@ public class CartDisplay extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     Session session;
     SharedPreferences.Editor editor;
+    CartAdapter cartAdapter;
+    TextView total;
 
     private static final String TAG = "cartdata";
 
@@ -41,6 +46,7 @@ public class CartDisplay extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         arrayList = new ArrayList<>();
+        total=findViewById(R.id.cart_total_tv);
         mContext = CartDisplay.this;
         session = new Session(this);
 
@@ -61,8 +67,39 @@ public class CartDisplay extends AppCompatActivity {
         //get all joined table data to diaplay
         arrayList = databaseHelper.getAllCARTProduct(userid);
 
-        listView.setAdapter(new CartAdapter(mContext, arrayList));
+        cartAdapter= new CartAdapter(mContext, arrayList);
+        cartAdapter.setUpadteProductDBListener(updateDatabaseListener);
+        listView.setAdapter(cartAdapter);
+        checkPrizeAndChange();
+        cartAdapter.notifyDataSetChanged();
 
+
+    }
+
+    private void checkPrizeAndChange() {
+        CartModel cartModel;
+        ProductModel productModel = new ProductModel();
+
+        for (int i = 0; i < arrayList.size(); i++) {
+            cartModel = arrayList.get(i);
+            int q = cartModel.getQunatity();
+
+            int price = cartModel.getProductModel().getPprice();
+
+            int total = q * price;
+
+            productModel.setPprice(total);
+          //  productModel.setPname(cartModel.getProductModel().getPname());
+            cartModel.setProductModel(productModel);
+
+        }
+//
+//        int pp=productModel.getPprice();
+//        for (int p = 0; p < pp ; p++) {
+//            int tp=pp;
+//            int pt= pp + tp ;
+//            Log.d(TAG, "pt " + pt);
+//        }
     }
 
     @Override
@@ -87,5 +124,30 @@ public class CartDisplay extends AppCompatActivity {
         editor.commit();
         startActivity(new Intent(CartDisplay.this, LoginActivity.class));
     }
+
+    private UpdateDatabaseListener updateDatabaseListener = new UpdateDatabaseListener() {
+
+        @Override
+        public void counttotalcartproduct(int count) {
+            // textView.setText(Integer.toString(count));
+        }
+
+        @Override
+        public void pricecartupadte(int i) {
+            CartModel cartModel = arrayList.get(i);
+            int q=cartModel.getQunatity();
+
+            int price= cartModel.getProductModel().getPprice();
+
+            int total=q * price;
+
+            ProductModel productModel= new ProductModel();
+            productModel.setPprice(total);
+            productModel.setPname(cartModel.getProductModel().getPname());
+            cartModel.setProductModel(productModel);
+            Log.d(TAG, "onClick: total in" + total);
+
+        }
+    };
 
 }
