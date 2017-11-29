@@ -50,6 +50,10 @@ public class ProductAdapter extends BaseAdapter {
 
     }
 
+    public ProductAdapter() {
+
+    }
+
     @Override
     public int getCount() {
 
@@ -81,7 +85,7 @@ public class ProductAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             viewHolder.name = (TextView) view.findViewById(R.id.textView2);
-            viewHolder.quentity = (TextView) view.findViewById(R.id.textView3);
+            viewHolder.category = (TextView) view.findViewById(R.id.textView3);
             viewHolder.addtocart = (Button) view.findViewById(R.id.addtocarts);
 
             view.setTag(viewHolder);
@@ -98,7 +102,7 @@ public class ProductAdapter extends BaseAdapter {
 
 
             viewHolder.name.setText(ma.getPname().toString());
-            viewHolder.quentity.setText(String.valueOf(ma.getPquentity()));
+            viewHolder.category.setText(String.valueOf(ma.getCategory()));
 
 
             viewHolder.addtocart.setOnClickListener(new View.OnClickListener() {
@@ -107,10 +111,10 @@ public class ProductAdapter extends BaseAdapter {
 
                     ProductModel productModel = (ProductModel) getItem(i);
                     int pid = Integer.parseInt(String.valueOf(productModel.getPid()));
-                    int pquntity = productModel.getPquentity();
+//                    int pquntity = productModel.getPquentity();
 
                     int cpq = 1;
-                    int updateinproduct = pquntity - cpq;
+//                    int updateinproduct = pquntity - cpq;
 
                     //Inserting data in cart table
                     cartModel.setUid(uid);
@@ -119,9 +123,9 @@ public class ProductAdapter extends BaseAdapter {
                     pdb.insertcart(cartModel);
 
                     //Upadte data in product to disply live
-                    productModel.setPquentity(updateinproduct);
-                    pdb.updateData(productModel);
-                    notifyDataSetChanged();
+//                    productModel.setPquentity(updateinproduct);
+//                    pdb.updateData(productModel);
+//                    notifyDataSetChanged();
 
 
                     String un = sharedPreferences.getString("useremail", "");
@@ -130,8 +134,9 @@ public class ProductAdapter extends BaseAdapter {
                     int uid = pdb.getuserid(un);
                     //get total count added cart product and pass to interface listener
                     int  count = pdb.getCartCount(uid);
+                    Log.d(TAG, "akshay : " + count);
                     mUpadteProductDBListener.counttotalcartproduct(count);
-                    Log.d(TAG, "counttttttttttt: " + count);
+
 
 
                     viewHolder.addtocart.setEnabled(false);
@@ -152,7 +157,7 @@ public class ProductAdapter extends BaseAdapter {
     class ViewHolder {
 
         private TextView name;
-        private TextView quentity;
+        private TextView category;
         private Button addtocart;
 
     }

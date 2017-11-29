@@ -95,17 +95,17 @@ public class CartAdapter extends BaseAdapter {
         //Increment in cart product(Cart table)
         final int updateinproduct = pquntity + cpq;
 
-        //Decrement in product (Product table)
-        final int pqd = ma.getProductModel().getPquentity();
-        final int upd = pqd - cpq;
+//        //Decrement in product (Product table)
+//        final int pqd = ma.getProductModel().getPquentity();
+//        final int upd = pqd - cpq;
 
 
         //Decrement in cart product (Cart table)
         final int updatedeproduct = pquntity - cpq;
 
-        //Increment in product (Product table)
-        final int pqi = ma.getProductModel().getPquentity();
-        final int upi = pqi + cpq;
+//        //Increment in product (Product table)
+//        final int pqi = ma.getProductModel().getPquentity();
+//        final int upi = pqi + cpq;
 
 
         viewHolder.increment.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +139,7 @@ public class CartAdapter extends BaseAdapter {
             public void onClick(View view) {
 
                 Intent intent2 = new Intent("is_decrement");
-
+                CartModel cartModel = (CartModel) getItem(i);
                 intent2.putExtra("postion",i);
 
                 //Decrement
@@ -147,13 +147,13 @@ public class CartAdapter extends BaseAdapter {
                 intent2.putExtra("did", pid);
 
                 //change dyanamicly in  listview upadted quntity
-                CartModel cartModel = (CartModel) getItem(i);
+
                 cartModel.setQunatity(cartModel.getQunatity() - 1);
-
-
 
                 //send intent values to broadcast
                 mContext.sendBroadcast(intent2);
+
+                mUpadteProductDBListener.pricecartupadte(i);
 
                 notifyDataSetChanged();
             }

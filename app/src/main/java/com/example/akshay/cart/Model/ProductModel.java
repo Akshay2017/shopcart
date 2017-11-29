@@ -5,10 +5,20 @@ package com.example.akshay.cart.Model;
  */
 
 public class ProductModel {
-    String pid;
+    int pid;
     String pname;
-    int pquentity;
     int pprice;
+    String category;
+
+    public ProductModel(String name, int price, String category) {
+        this.pname=name;
+        this.pprice=price;
+        this.category=category;
+    }
+
+    public ProductModel() {
+
+    }
 
     public int getPprice() {
         return pprice;
@@ -28,11 +38,11 @@ public class ProductModel {
         isAdded = added;
     }
 
-    public String getPid() {
+    public int getPid() {
         return pid;
     }
 
-    public void setPid(String pid) {
+    public void setPid(int pid) {
         this.pid = pid;
     }
 
@@ -44,11 +54,11 @@ public class ProductModel {
         this.pname = pname;
     }
 
-    public int getPquentity() {
-        return pquentity;
+    public String getCategory() {
+        return category;
     }
 
-    public void setPquentity(int pquentity) {
-        this.pquentity = pquentity;
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

@@ -3,6 +3,8 @@ package com.example.akshay.cart.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.akshay.cart.Adapter.PageAdapter;
 import com.example.akshay.cart.Adapter.ProductAdapter;
 import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
 import com.example.akshay.cart.Login.LoginActivity;
@@ -24,7 +27,7 @@ import com.example.akshay.cart.InterfaceListener.UpdateDatabaseListener;
 
 import java.util.ArrayList;
 
-public class ProductDispaly extends AppCompatActivity {
+public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
     ListView listView;
     ArrayList<ProductModel> arrayList;
     Context mContext;
@@ -37,6 +40,12 @@ public class ProductDispaly extends AppCompatActivity {
     ImageView imageView;
     TextView menutextView;
 
+    //This is our tablayout
+    private TabLayout tabLayout;
+
+    //This is our viewPager
+    private ViewPager viewPager;
+
     private static final String TAG = "productdata";
     private int counts;
 
@@ -44,12 +53,31 @@ public class ProductDispaly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_dispaly);
-        listView = findViewById(R.id.list);
         arrayList = new ArrayList<>();
         mContext = ProductDispaly.this;
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        //Initializing the tablayout
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+        //Adding the tabs using addTab() method
+        tabLayout.addTab(tabLayout.newTab().setText("Electronics"));
+        tabLayout.addTab(tabLayout.newTab().setText("Grocery"));
+        tabLayout.addTab(tabLayout.newTab().setText("Sports"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        //Initializing viewPager
+        viewPager = (ViewPager) findViewById(R.id.container);
+
+        //Creating our pager adapter
+        PageAdapter adapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
+        //Adding adapter to pager
+        viewPager.setAdapter(adapter);
+
+        //Adding onTabSelectedListener to swipe views
+        tabLayout.setOnTabSelectedListener(this);
         databaseHelper = new DatabaseHelper(mContext);
 
         //retrive user email using sharedPreferences
@@ -67,19 +95,11 @@ public class ProductDispaly extends AppCompatActivity {
         if (!session.loggedin()) {
             logout();
         }
-
-        // get all data from  product table
-        arrayList = databaseHelper.getAllProduct();
-
         //count cart total row to display
          counts = databaseHelper.getCartCount(uid);
+        productAdapter=new ProductAdapter();
+         productAdapter.setUpadteProductDBListener(updateDatabaseListener);
 
-
-
-        productAdapter = new ProductAdapter(mContext, arrayList, uid);
-        productAdapter.setUpadteProductDBListener(updateDatabaseListener);
-
-        listView.setAdapter(productAdapter);
 
     }
 
@@ -142,6 +162,21 @@ public class ProductDispaly extends AppCompatActivity {
 
         }
     };
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+    }
 
     //this is InterfaceListerner fro upadte Activity view by using implementation their override methood
    /* @Override

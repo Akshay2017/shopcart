@@ -14,12 +14,17 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
+import com.example.akshay.cart.Fragments.Main2Activity;
 import com.example.akshay.cart.InputValidation.InputValidation;
 import com.example.akshay.cart.AddData.AddProduct;
 import com.example.akshay.cart.Activity.ProductDispaly;
+import com.example.akshay.cart.Model.ProductModel;
 import com.example.akshay.cart.R;
 import com.example.akshay.cart.Registration.RegisterActivity;
 import com.example.akshay.cart.Session.Session;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -143,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //for loggedin
             session.setLoggedin(true);
 
+            addDataStatic();
             //if email and password true go to product page
             Intent intent = new Intent(activity, ProductDispaly.class);
             startActivity(intent);
@@ -152,6 +158,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    public void addDataStatic(){
+        List<ProductModel> productModelList=new ArrayList<>();
+        productModelList.add( new ProductModel("Air conditioner",200,"electronic"));
+        productModelList.add( new ProductModel("Hair dryer",100,"electronic"));
+        productModelList.add( new ProductModel("Window fan",350,"electronic"));
+        productModelList.add( new ProductModel("Oven",150,"electronic"));
+        productModelList.add( new ProductModel("Clothes iron",200,"electronic"));
+
+        productModelList.add( new ProductModel("Vegetable Oil",200,"grocery"));
+        productModelList.add( new ProductModel("Shampoo",100,"grocery"));
+        productModelList.add( new ProductModel("Air Freshner",350,"grocery"));
+        productModelList.add( new ProductModel("Toothbrush",150,"grocery"));
+        productModelList.add( new ProductModel("Soap",200,"grocery"));
+
+        productModelList.add( new ProductModel("soccer shoes",200,"sports"));
+        productModelList.add( new ProductModel("Flying discs",100,"sports"));
+        productModelList.add( new ProductModel("bats",350,"sports"));
+        productModelList.add( new ProductModel("Sticks",150,"sports"));
+        productModelList.add( new ProductModel("tennis shoes",200,"sports"));
+
+        databaseHelper.insertdata(productModelList);
+
+    }
 
     private void emptyInputEditText() {
         textInputEditTextEmail.setText(null);

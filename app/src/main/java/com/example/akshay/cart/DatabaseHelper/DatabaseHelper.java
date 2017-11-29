@@ -13,6 +13,7 @@ import com.example.akshay.cart.Model.ProductModel;
 import com.example.akshay.cart.Model.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by delaroy on 3/27/17.
@@ -42,8 +43,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // product table column
     public static final String PID = "pid";
     public static final String PNAME = "pname";
-    public static final String PQUNTITY = "pquntity";
     public static final String PPRICE = "pprice";
+    public static final String PCATEGORY= "category";
+
 
 
     // card table column
@@ -63,7 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // create product table query
     private String CREATE_PRODUCT_TABLE = "CREATE TABLE " + TABLE_PRODUCTS + "("
             + PID + " INTEGER PRIMARY KEY AUTOINCREMENT," + PNAME + " TEXT,"
-            + PQUNTITY + " INTEGER," + PPRICE + " INTEGER" + ")";
+             + PPRICE + " INTEGER,"+ PCATEGORY + " TEXT" + ")";
 
     // create cart table query
     private String CREATE_CART_TABLE = "CREATE TABLE " + TABLE_CART + "("
@@ -186,39 +188,61 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    //Adding product data into product table(AddProduct Activity)
-    public boolean insertdata(ProductModel productModel) {
+
+
+    //Adding static product data into product table(AddProduct Activity)
+    public void insertdata(List<ProductModel> productModelList) {
 
         SQLiteDatabase database = this.getWritableDatabase();
 
-        ContentValues contentValues = new ContentValues();
+        for (ProductModel productmodel:productModelList ) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(PNAME, productmodel.getPname());
+            contentValues.put(PPRICE, productmodel.getPprice());
+            contentValues.put(PCATEGORY, productmodel.getCategory());
 
-        contentValues.put(PNAME, productModel.getPname());
-        contentValues.put(PQUNTITY, productModel.getPquentity());
-        contentValues.put(PPRICE, productModel.getPprice());
-
-        long result = database.insert(TABLE_PRODUCTS, null, contentValues);
-
-        if (result == -1)
-            return false;
-        else
-            return true;
+            long result = database.insert(TABLE_PRODUCTS, null, contentValues);
+             Log.d("TAG","seccesfull added result"+ result);
+        }
     }
 
+
+
+
+
+//    //Adding product data into product table(AddProduct Activity)
+//    public boolean insertdata(ProductModel productModel) {
+//
+//        SQLiteDatabase database = this.getWritableDatabase();
+//
+//        ContentValues contentValues = new ContentValues();
+//
+//        contentValues.put(PNAME, productModel.getPname());
+//        contentValues.put(PQUNTITY, productModel.getPquentity());
+//        contentValues.put(PPRICE, productModel.getPprice());
+//
+//        long result = database.insert(TABLE_PRODUCTS, null, contentValues);
+//
+//        if (result == -1)
+//            return false;
+//        else
+//            return true;
+//    }
+
     // getting all product to diaply in listview (Productt Activity)
-    public ArrayList<ProductModel> getAllProduct() {
+    public ArrayList<ProductModel> getAllProduct(String category) {
         ArrayList<ProductModel> productList = new ArrayList<>();
         //Select all Query
-        String selectQuery = "SELECT * FROM " + TABLE_PRODUCTS;
-
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "
+                + TABLE_PRODUCTS + " where " + PCATEGORY + " like '%" + category
+                + "%'", null);
 
         while (cursor != null && cursor.moveToNext()) {
             ProductModel product = new ProductModel();
-            product.setPid(cursor.getString(cursor.getColumnIndex(PID)));
+            product.setPid(cursor.getInt(cursor.getColumnIndex(PID)));
             product.setPname(cursor.getString(cursor.getColumnIndex(PNAME)));
-            product.setPquentity(cursor.getInt(cursor.getColumnIndex(PQUNTITY)));
+            product.setCategory(cursor.getString(cursor.getColumnIndex(PCATEGORY)));
             product.setPprice(cursor.getInt(cursor.getColumnIndex(PPRICE)));
 
             productList.add(product);
@@ -254,7 +278,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ProductModel productModel = new ProductModel();
                 productModel.setPprice(cursor.getInt(cursor.getColumnIndex(PPRICE)));
                 productModel.setPname(cursor.getString(cursor.getColumnIndex(PNAME)));
-                productModel.setPquentity(cursor.getInt(cursor.getColumnIndex(PQUNTITY)));
+                productModel.setCategory(cursor.getString(cursor.getColumnIndex(PCATEGORY)));
                 cart.setProductModel(productModel);
 
                 cartList.add(cart);
@@ -288,21 +312,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-   // Upadating product quntity column  when some(only 1) quntity add to cart table
-    public int updateData(ProductModel productModel) {
-
-        SQLiteDatabase database = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        Log.d(TAG, "database :  " + productModel.getPquentity());
-
-        contentValues.put(PQUNTITY, productModel.getPquentity());
-
-
-        int datas = database.update(TABLE_PRODUCTS, contentValues, "pid = ?", new String[]{String.valueOf(productModel.getPid())});
-
-        return datas;
-    }
+//   // Upadating product quntity column  when some(only 1) quntity add to cart table
+//    public int updateData(ProductModel productModel) {
+//
+//        SQLiteDatabase database = this.getWritableDatabase();
+//
+//        ContentValues contentValues = new ContentValues();
+//        Log.d(TAG, "database :  " + productModel.getPquentity());
+//
+//        contentValues.put(PQUNTITY, productModel.getPquentity());
+//
+//
+//        int datas = database.update(TABLE_PRODUCTS, contentValues, "pid = ?", new String[]{String.valueOf(productModel.getPid())});
+//
+//        return datas;
+//    }
 
     // Increment cart quntity data when click to plue button
     public int incrementData(int quntity, int id) {
@@ -320,38 +344,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return datas;
     }
 
-    //Inccrement product quntity data when click to minus button
-    public int incrementProductData(int quntity, int id) {
-
-        SQLiteDatabase database = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        Log.d(TAG, "database :  " + quntity);
-
-        contentValues.put(PQUNTITY, quntity);
-
-
-        int datas = database.update(TABLE_PRODUCTS, contentValues, "pid = ?", new String[]{String.valueOf(id)});
-
-        return datas;
-    }
-
-
-    //Decremnet product quntity data when click to plue button
-    public int decrimentProductData(int quntity, int id) {
-
-        SQLiteDatabase database = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        Log.d(TAG, "database :  " + quntity);
-
-        contentValues.put(PQUNTITY, quntity);
+//    //Inccrement product quntity data when click to minus button
+//    public int incrementProductData(int quntity, int id) {
+//
+//        SQLiteDatabase database = this.getWritableDatabase();
+//
+//        ContentValues contentValues = new ContentValues();
+//        Log.d(TAG, "database :  " + quntity);
+//
+//        contentValues.put(PQUNTITY, quntity);
+//
+//
+//        int datas = database.update(TABLE_PRODUCTS, contentValues, "pid = ?", new String[]{String.valueOf(id)});
+//
+//        return datas;
+//    }
 
 
-        int datas = database.update(TABLE_PRODUCTS, contentValues, "pid = ?", new String[]{String.valueOf(id)});
-
-        return datas;
-    }
+//    //Decremnet product quntity data when click to plue button
+//    public int decrimentProductData(int quntity, int id) {
+//
+//        SQLiteDatabase database = this.getWritableDatabase();
+//
+//        ContentValues contentValues = new ContentValues();
+//        Log.d(TAG, "database :  " + quntity);
+//
+//        contentValues.put(PQUNTITY, quntity);
+//
+//
+//        int datas = database.update(TABLE_PRODUCTS, contentValues, "pid = ?", new String[]{String.valueOf(id)});
+//
+//        return datas;
+//    }
 
     //Decremnet cart quntity data when click to minus button
     public int decrimentData(int quntity, int id) {

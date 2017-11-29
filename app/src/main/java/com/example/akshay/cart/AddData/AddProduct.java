@@ -40,17 +40,17 @@ public class AddProduct extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                productModel.setPname(pname.getText().toString().trim());
-                productModel.setPquentity(Integer.parseInt(pquntity.getText().toString().trim()));
-                productModel.setPprice(Integer.parseInt(pprice.getText().toString().trim()));
+//                productModel.setPname(pname.getText().toString().trim());
+//                productModel.setPquentity(Integer.parseInt(pquntity.getText().toString().trim()));
+//                productModel.setPprice(Integer.parseInt(pprice.getText().toString().trim()));
+//
+//                boolean insertdt = pdb.insertdata(productModel);
 
-                boolean insertdt = pdb.insertdata(productModel);
-
-                if (insertdt == true) {
-                    Toast.makeText(AddProduct.this, "succesfull Addded product to product table", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(AddProduct.this, "Unsuccesfull", Toast.LENGTH_SHORT).show();
-                }
+//                if (insertdt == true) {
+//                    Toast.makeText(AddProduct.this, "succesfull Addded product to product table", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(AddProduct.this, "Unsuccesfull", Toast.LENGTH_SHORT).show();
+//                }
 
             }
         });
