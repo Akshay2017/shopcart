@@ -2,28 +2,25 @@ package com.example.akshay.cart.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.example.akshay.cart.Activity.ProductDispaly;
 import com.example.akshay.cart.Adapter.ProductAdapter;
 import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
 import com.example.akshay.cart.Model.ProductModel;
 import com.example.akshay.cart.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ItemFragment extends Fragment {
+
+public class SportsFragment extends Fragment {
+
     ListView listView;
     ArrayList<ProductModel> arrayList;
     DatabaseHelper databaseHelper;
@@ -34,7 +31,9 @@ public class ItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return  inflater.inflate(R.layout.fragment_item_list, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_blank_fragment2, container, false);
+
     }
 
     @Override
@@ -45,7 +44,7 @@ public class ItemFragment extends Fragment {
     }
 
     private void initView() {
-        listView = getView().findViewById(R.id.fragmentlist);
+        listView = getView().findViewById(R.id.fragmentlist2);
         arrayList = new ArrayList<>();
         databaseHelper = new DatabaseHelper(getActivity());
         sharedPreferences = getActivity().getSharedPreferences("MyPref", 0);
@@ -55,7 +54,7 @@ public class ItemFragment extends Fragment {
     private void list() {
         String un = sharedPreferences.getString("useremail", "");
         int uid = databaseHelper.getuserid(un);
-        String category="grocery";
+        String category="sports";
         arrayList = databaseHelper.getAllProduct(category);
         productAdapter = new ProductAdapter(getActivity(), arrayList, uid);
         listView.setAdapter(productAdapter);

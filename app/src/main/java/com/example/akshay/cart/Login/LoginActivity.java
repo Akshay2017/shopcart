@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     SharedPreferences pref;
     SharedPreferences.Editor editor;
 
-    Button b;
     Session session;
 
     private static final String TAG = "login";
@@ -79,7 +78,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
         editor = pref.edit();
 
-        b = findViewById(R.id.addddd);
 
         session = new Session(this);
 
@@ -94,7 +92,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void initListeners() {
         appCompatButtonLogin.setOnClickListener(this);
         appCompatButtonSignup.setOnClickListener(this);
-        b.setOnClickListener(this);
     }
 
     private void initObjects() {
@@ -112,10 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Intent intentRegister = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(intentRegister);
                 break;
-            case R.id.addddd:
-                Intent in = new Intent(getApplicationContext(), AddProduct.class);
-                startActivity(in);
-                break;
+
 
         }
     }

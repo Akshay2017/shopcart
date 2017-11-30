@@ -28,7 +28,7 @@ public class AddProduct extends AppCompatActivity {
         pname = (TextView) findViewById(R.id.pname);
         pquntity = (TextView) findViewById(R.id.pquntity);
         pprice = (TextView) findViewById(R.id.pprice);
-        padd = (Button) findViewById(R.id.padd);
+      //  padd = (Button) findViewById(R.id.padd);
 
         context = AddProduct.this;
         pdb = new DatabaseHelper(context);

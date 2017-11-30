@@ -85,7 +85,7 @@ public class ProductAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             viewHolder.name = (TextView) view.findViewById(R.id.textView2);
-            viewHolder.category = (TextView) view.findViewById(R.id.textView3);
+            viewHolder.cost = (TextView) view.findViewById(R.id.textView3);
             viewHolder.addtocart = (Button) view.findViewById(R.id.addtocarts);
 
             view.setTag(viewHolder);
@@ -102,7 +102,7 @@ public class ProductAdapter extends BaseAdapter {
 
 
             viewHolder.name.setText(ma.getPname().toString());
-            viewHolder.category.setText(String.valueOf(ma.getCategory()));
+            viewHolder.cost.setText(String.valueOf(ma.getPprice()));
 
 
             viewHolder.addtocart.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +157,7 @@ public class ProductAdapter extends BaseAdapter {
     class ViewHolder {
 
         private TextView name;
-        private TextView category;
+        private TextView cost;
         private Button addtocart;
 
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cart</string>
+    <string name="app_name">ShopCart</string>
 
     <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>

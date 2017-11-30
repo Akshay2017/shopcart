@@ -21,7 +21,7 @@ import com.example.akshay.cart.R;
 import java.util.ArrayList;
 
 
-public class BlankFragment extends Fragment {
+public class ElectronicFragment extends Fragment {
 
     ListView listView;
     ArrayList<ProductModel> arrayList;

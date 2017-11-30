@@ -57,7 +57,6 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
         mContext = ProductDispaly.this;
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 
