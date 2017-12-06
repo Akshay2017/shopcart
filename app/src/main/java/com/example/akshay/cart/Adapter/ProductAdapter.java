@@ -1,5 +1,6 @@
 package com.example.akshay.cart.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -40,6 +41,9 @@ public class ProductAdapter extends BaseAdapter {
 
     public ProductAdapter(Context context, ArrayList<ProductModel> arrayList, int uid) {
         this.mContext = context;
+        if (mContext instanceof Activity) {
+            mUpadteProductDBListener = (UpdateDatabaseListener) mContext;
+        }
         this.mArrayList = arrayList;
         this.pdb = new DatabaseHelper(context);
         this.productDispaly = new ProductDispaly();
@@ -134,14 +138,14 @@ public class ProductAdapter extends BaseAdapter {
                     int uid = pdb.getuserid(un);
                     //get total count added cart product and pass to interface listener
                     int  count = pdb.getCartCount(uid);
-                    Log.d(TAG, "akshay : " + count);
+                    Log.d("TAGA", "akshay : " + count);
                     mUpadteProductDBListener.counttotalcartproduct(count);
 
 
 
                     viewHolder.addtocart.setEnabled(false);
                     viewHolder.addtocart.setFocusable(false);
-                    viewHolder.addtocart.setText(null);
+                    /*viewHolder.addtocart.setText(null);*/
 
                 }
             });

@@ -275,6 +275,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cart.setcId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(CID))));
                 cart.setpId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(CPID))));
                 cart.setQunatity(cursor.getInt(cursor.getColumnIndex(CPQUNTITY)));
+
                 ProductModel productModel = new ProductModel();
                 productModel.setPprice(cursor.getInt(cursor.getColumnIndex(PPRICE)));
                 productModel.setPname(cursor.getString(cursor.getColumnIndex(PNAME)));

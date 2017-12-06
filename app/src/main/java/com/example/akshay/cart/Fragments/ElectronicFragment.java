@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import com.example.akshay.cart.R;
 import java.util.ArrayList;
 
 
-public class ElectronicFragment extends Fragment {
+public class ElectronicFragment extends Fragment{
 
     ListView listView;
     ArrayList<ProductModel> arrayList;
@@ -43,6 +44,7 @@ public class ElectronicFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView();
         list();
+        Log.d("Tags", "onViewCreated: ");
     }
 
     private void initView() {
@@ -52,6 +54,7 @@ public class ElectronicFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("MyPref", 0);
         editor = sharedPreferences.edit();
         pdb = new DatabaseHelper(getActivity());
+
     }
 
     private void list() {

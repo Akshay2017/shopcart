@@ -121,6 +121,7 @@ public class CartDisplay extends AppCompatActivity {
             Log.d(TAG, "onClick: total in" + total);
 
         }
+
     };
 
 }
