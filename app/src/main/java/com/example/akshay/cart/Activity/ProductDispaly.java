@@ -1,7 +1,9 @@
 package com.example.akshay.cart.Activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -19,9 +21,11 @@ import android.widget.TextView;
 import com.example.akshay.cart.Adapter.PageAdapter;
 import com.example.akshay.cart.Adapter.ProductAdapter;
 import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
+import com.example.akshay.cart.Fragments.ElectronicFragment;
 import com.example.akshay.cart.Login.LoginActivity;
 import com.example.akshay.cart.Model.ProductModel;
 import com.example.akshay.cart.R;
+import com.example.akshay.cart.Registration.RegisterActivity;
 import com.example.akshay.cart.Session.Session;
 import com.example.akshay.cart.InterfaceListener.UpdateDatabaseListener;
 
@@ -38,7 +42,7 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     ImageView imageView;
-    TextView menutextView;
+    public TextView menutextView;
 
     //This is our tablayout
     private TabLayout tabLayout;
@@ -94,11 +98,13 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
         if (!session.loggedin()) {
             logout();
         }
+
+        ElectronicFragment electronicFragment=new ElectronicFragment();
+
         //count cart total row to display
          counts = databaseHelper.getCartCount(uid);
-        productAdapter=new ProductAdapter();
-         productAdapter.setUpadteProductDBListener(updateDatabaseListener);
-
+//        productAdapter=new ProductAdapter();
+//        productAdapter.setUpadteProductDBListener(updateDatabaseListener);
 
     }
 
@@ -148,19 +154,24 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
     }
 
     //this is InterfaceListerner fro upadte Activity view by using anonymous class
-    private UpdateDatabaseListener updateDatabaseListener = new UpdateDatabaseListener() {
-
-        @Override
-        public void counttotalcartproduct(int count) {
-            Log.d(TAG, " inside counttoatoal() -> count : " + count);
-            menutextView.setText(""+count);
-        }
-
-        @Override
-        public void pricecartupadte(int i) {
-
-        }
-    };
+//    private UpdateDatabaseListener updateDatabaseListener = new UpdateDatabaseListener() {
+//
+//        @Override
+//        public void counttotalcartproduct(int count) {
+//            Log.d(TAG, " inside counttoatoal() -> count : " + count);
+//            menutextView.setText(""+count);
+//        }
+//
+//        @Override
+//        public void pricecartupadte(int i) {
+//
+//        }
+//
+//        @Override
+//        public void pricecartupadtedecrement(int i) {
+//
+//        }
+//    };
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
@@ -176,6 +187,44 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+      registerReceiver(broadcastReceiver,new IntentFilter("async"));
+    }
+
+    BroadcastReceiver broadcastReceiver=new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+
+            if (action.equals("async")) {
+                int c = intent.getIntExtra("async", 0);
+                Log.d(TAG, "onReceive count: " + c);
+                menutextView.setText("" + c);
+            }else {
+                menutextView.setText(0);
+            }
+
+        }
+    };
+
+//    @Override
+//    public void counttotalcartproduct(int count) {
+//        menutextView.setText(""+count);
+//    }
+//
+//    @Override
+//    public void pricecartupadte(int i) {
+//
+//    }
+//
+//    @Override
+//    public void pricecartupadtedecrement(int i) {
+//
+//    }
 
     //this is InterfaceListerner fro upadte Activity view by using implementation their override methood
    /* @Override

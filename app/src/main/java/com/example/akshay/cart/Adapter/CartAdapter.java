@@ -154,7 +154,7 @@ public class CartAdapter extends BaseAdapter {
                 //send intent values to broadcast
                 mContext.sendBroadcast(intent2);
 
-                mUpadteProductDBListener.pricecartupadte(i);
+                mUpadteProductDBListener.pricecartupadtedecrement(i);
 
                 notifyDataSetChanged();
             }

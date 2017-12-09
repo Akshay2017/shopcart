@@ -121,6 +121,22 @@ public class CartDisplay extends AppCompatActivity {
             Log.d(TAG, "onClick: total in" + total);
 
         }
+
+        @Override
+        public void pricecartupadtedecrement(int i) {
+            CartModel cartModel = arrayList.get(i);
+            int q=cartModel.getQunatity();
+
+            int price= cartModel.getProductModel().getPprice();
+
+            int total=q * price;
+
+            ProductModel productModel= new ProductModel();
+            productModel.setPprice(total);
+            productModel.setPname(cartModel.getProductModel().getPname());
+            cartModel.setProductModel(productModel);
+            Log.d(TAG, "onClick: total de" + total);
+        }
     };
 
 }

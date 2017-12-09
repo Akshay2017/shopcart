@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.example.akshay.cart.R;
 
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 
 public class ElectronicFragment extends Fragment {
 
@@ -29,7 +32,7 @@ public class ElectronicFragment extends Fragment {
     ProductAdapter productAdapter;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    private UpdateDatabaseListener mUpdateDatabaseListener;
+    UpdateDatabaseListener mUpdateDatabaseListeners;
     DatabaseHelper pdb;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -469,4 +469,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
+    public ArrayList<ProductModel> getAllPidForDisableButton(int userId) {
+        ArrayList<ProductModel> cartList = new ArrayList<>();
+
+        String selectQuery = "SELECT * FROM " + TABLE_PRODUCTS + " LEFT "
+                + " JOIN " + TABLE_CART
+                + " ON " + CPID + " = " + PID + " JOIN " + TABLE_USER
+                + " ON " + COLUMN_USER_ID + " = " + CUID + " WHERE " + CUID + " = " + userId;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        cursor.close();
+        db.close();
+        return cartList;
+
+    }
+
 }

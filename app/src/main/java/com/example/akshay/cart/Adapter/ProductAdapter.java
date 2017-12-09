@@ -1,7 +1,9 @@
 package com.example.akshay.cart.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.akshay.cart.AsyncTask.MyAsyncTask;
 import com.example.akshay.cart.DatabaseHelper.DatabaseHelper;
 import com.example.akshay.cart.Model.CartModel;
 import com.example.akshay.cart.Model.ProductModel;
@@ -34,7 +37,7 @@ public class ProductAdapter extends BaseAdapter {
     int uid;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-
+    int count;
 
     private static final String TAG = "Adapter";
 
@@ -47,6 +50,16 @@ public class ProductAdapter extends BaseAdapter {
         this.uid = uid;
         this.sharedPreferences = context.getSharedPreferences("MyPref", 0);
         this.editor = sharedPreferences.edit();
+
+//        if (mContext instanceof Activity)
+//        {
+//               mUpadteProductDBListener = (UpdateDatabaseListener) mContext;
+//        }
+
+        if (mContext instanceof Activity){
+
+            productDispaly= (ProductDispaly) mContext;
+        }
 
     }
 
@@ -120,7 +133,11 @@ public class ProductAdapter extends BaseAdapter {
                     cartModel.setUid(uid);
                     cartModel.setpId(pid);
                     cartModel.setQunatity(cpq);
-                    pdb.insertcart(cartModel);
+
+                    MyAsyncTask myAsyncTask=new MyAsyncTask(cartModel,mContext);
+                    myAsyncTask.execute(String.valueOf(count));
+                    myAsyncTask.setContext(productDispaly);
+                   // pdb.insertcart(cartModel);
 
                     //Upadte data in product to disply live
 //                    productModel.setPquentity(updateinproduct);
@@ -131,17 +148,16 @@ public class ProductAdapter extends BaseAdapter {
                     String un = sharedPreferences.getString("useremail", "");
 
                     //get user id
-                    int uid = pdb.getuserid(un);
+                    uid = pdb.getuserid(un);
                     //get total count added cart product and pass to interface listener
-                    int  count = pdb.getCartCount(uid);
-                    Log.d(TAG, "akshay : " + count);
-                    mUpadteProductDBListener.counttotalcartproduct(count);
+                    count = pdb.getCartCount(uid);
+                    Log.d(TAG, "akshays : " + count);
+//                    mUpadteProductDBListener.counttotalcartproduct(count);
 
 
 
                     viewHolder.addtocart.setEnabled(false);
                     viewHolder.addtocart.setFocusable(false);
-                    viewHolder.addtocart.setText(null);
 
                 }
             });
