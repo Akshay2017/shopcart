@@ -43,6 +43,9 @@ public class ProductAdapter extends BaseAdapter {
 
     public ProductAdapter(Context context, ArrayList<ProductModel> arrayList, int uid) {
         this.mContext = context;
+        if (mContext instanceof Activity) {
+            mUpadteProductDBListener = (UpdateDatabaseListener) mContext;
+        }
         this.mArrayList = arrayList;
         this.pdb = new DatabaseHelper(context);
         this.productDispaly = new ProductDispaly();
@@ -158,14 +161,24 @@ public class ProductAdapter extends BaseAdapter {
                     //get user id
                     uid = pdb.getuserid(un);
                     //get total count added cart product and pass to interface listener
+<<<<<<< HEAD
                     count = pdb.getCartCount(uid);
                     Log.d(TAG, "akshays : " + count);
 //                    mUpadteProductDBListener.counttotalcartproduct(count);
+=======
+                    int  count = pdb.getCartCount(uid);
+                    Log.d("TAGA", "akshay : " + count);
+                    mUpadteProductDBListener.counttotalcartproduct(count);
+>>>>>>> 423a543f2739d3a3e5a879d30f5a49690f4db523
 
 
 
                     viewHolder.addtocart.setEnabled(false);
                     viewHolder.addtocart.setFocusable(false);
+<<<<<<< HEAD
+=======
+                    /*viewHolder.addtocart.setText(null);*/
+>>>>>>> 423a543f2739d3a3e5a879d30f5a49690f4db523
 
                 }
             });

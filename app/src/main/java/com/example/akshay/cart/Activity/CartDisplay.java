@@ -122,6 +122,7 @@ public class CartDisplay extends AppCompatActivity {
 
         }
 
+<<<<<<< HEAD
         @Override
         public void pricecartupadtedecrement(int i) {
             CartModel cartModel = arrayList.get(i);
@@ -137,6 +138,8 @@ public class CartDisplay extends AppCompatActivity {
             cartModel.setProductModel(productModel);
             Log.d(TAG, "onClick: total de" + total);
         }
+=======
+>>>>>>> 423a543f2739d3a3e5a879d30f5a49690f4db523
     };
 
 }

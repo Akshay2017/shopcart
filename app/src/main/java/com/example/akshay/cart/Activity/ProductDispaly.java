@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.style.TtsSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,7 +32,7 @@ import com.example.akshay.cart.InterfaceListener.UpdateDatabaseListener;
 
 import java.util.ArrayList;
 
-public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
+public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTabSelectedListener, UpdateDatabaseListener{
     ListView listView;
     ArrayList<ProductModel> arrayList;
     Context mContext;
@@ -43,6 +44,8 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
     SharedPreferences.Editor editor;
     ImageView imageView;
     public TextView menutextView;
+
+    ElectronicFragment electronicFragment;
 
     //This is our tablayout
     private TabLayout tabLayout;
@@ -64,6 +67,7 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
         //Initializing the tablayout
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 
+        Log.d(TAG, "onCreate product disply: ");
         //Adding the tabs using addTab() method
         tabLayout.addTab(tabLayout.newTab().setText("Electronics"));
         tabLayout.addTab(tabLayout.newTab().setText("Grocery"));
@@ -103,8 +107,14 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
 
         //count cart total row to display
          counts = databaseHelper.getCartCount(uid);
+<<<<<<< HEAD
 //        productAdapter=new ProductAdapter();
 //        productAdapter.setUpadteProductDBListener(updateDatabaseListener);
+=======
+        //productAdapter=new ProductAdapter();
+
+
+>>>>>>> 423a543f2739d3a3e5a879d30f5a49690f4db523
 
     }
 
@@ -166,11 +176,14 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
 //        public void pricecartupadte(int i) {
 //
 //        }
+<<<<<<< HEAD
 //
 //        @Override
 //        public void pricecartupadtedecrement(int i) {
 //
 //        }
+=======
+>>>>>>> 423a543f2739d3a3e5a879d30f5a49690f4db523
 //    };
 
     @Override
@@ -188,6 +201,7 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
 
     }
 
+<<<<<<< HEAD
 
     @Override
     protected void onStart() {
@@ -225,6 +239,19 @@ public class ProductDispaly extends AppCompatActivity implements TabLayout.OnTab
 //    public void pricecartupadtedecrement(int i) {
 //
 //    }
+=======
+    @Override
+    public void counttotalcartproduct(int count) {
+        menutextView.setText(""+count);
+    }
+
+    @Override
+    public void pricecartupadte(int i) {
+
+    }
+
+
+>>>>>>> 423a543f2739d3a3e5a879d30f5a49690f4db523
 
     //this is InterfaceListerner fro upadte Activity view by using implementation their override methood
    /* @Override

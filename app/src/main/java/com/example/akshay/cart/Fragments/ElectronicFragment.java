@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import static android.content.ContentValues.TAG;
 
 
-public class ElectronicFragment extends Fragment {
+public class ElectronicFragment extends Fragment{
 
     ListView listView;
     ArrayList<ProductModel> arrayList;
@@ -46,6 +46,7 @@ public class ElectronicFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initView();
         list();
+        Log.d("Tags", "onViewCreated: ");
     }
 
     private void initView() {
@@ -55,6 +56,7 @@ public class ElectronicFragment extends Fragment {
         sharedPreferences = getActivity().getSharedPreferences("MyPref", 0);
         editor = sharedPreferences.edit();
         pdb = new DatabaseHelper(getActivity());
+
     }
 
     private void list() {
