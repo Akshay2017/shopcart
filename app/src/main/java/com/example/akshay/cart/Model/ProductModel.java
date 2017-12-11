@@ -9,6 +9,15 @@ public class ProductModel {
     String pname;
     int pprice;
     String category;
+    boolean isAdded;
+
+    public boolean isAdded() {
+        return isAdded;
+    }
+
+    public void setAdded(boolean added) {
+        isAdded = added;
+    }
 
     public ProductModel(String name, int price, String category) {
         this.pname=name;
@@ -26,16 +35,6 @@ public class ProductModel {
 
     public void setPprice(int pprice) {
         this.pprice = pprice;
-    }
-
-    private boolean isAdded;
-
-    public boolean isAdded() {
-        return isAdded;
-    }
-
-    public void setAdded(boolean added) {
-        isAdded = added;
     }
 
     public int getPid() {

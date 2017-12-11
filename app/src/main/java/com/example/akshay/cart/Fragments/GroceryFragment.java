@@ -56,7 +56,7 @@ public class GroceryFragment extends Fragment {
         String un = sharedPreferences.getString("useremail", "");
         int uid = databaseHelper.getuserid(un);
         String category="grocery";
-        arrayList = databaseHelper.getAllProduct(category);
+        arrayList = databaseHelper.getAllProduct(category,uid);
         productAdapter = new ProductAdapter(getActivity(), arrayList, uid);
         listView.setAdapter(productAdapter);
 

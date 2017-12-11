@@ -5,8 +5,8 @@
       <module fileurl="file://C:\Users\Akshay\AndroidStudioProjects\shopcart\CartShoppingPlue.iml" filepath="C:\Users\Akshay\AndroidStudioProjects\shopcart\CartShoppingPlue.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Sith5\AndroidStudioProjects\shopcart\app\app.iml" filepath="C:\Users\Sith5\AndroidStudioProjects\shopcart\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shopcart.iml" filepath="$PROJECT_DIR$/shopcart.iml" />
       <module fileurl="file://C:\Users\Sith5\AndroidStudioProjects\shopcart\shopcart.iml" filepath="C:\Users\Sith5\AndroidStudioProjects\shopcart\shopcart.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shopcarts.iml" filepath="$PROJECT_DIR$/shopcarts.iml" />
     </modules>
   </component>
 </project>

@@ -230,12 +230,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //    }
 
     // getting all product to diaply in listview (Productt Activity)
-    public ArrayList<ProductModel> getAllProduct(String category) {
+    public ArrayList<ProductModel> getAllProduct(String category,int userId) {
         ArrayList<ProductModel> productList = new ArrayList<>();
         //Select all Query
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM "
-                + TABLE_PRODUCTS + " where " + PCATEGORY + " like '%" + category
+                + TABLE_PRODUCTS +   " LEFT JOIN (SELECT * FROM " + TABLE_CART + " WHERE " + CUID + " = " + userId + ") ON "
+                + CPID + " = " + PID + " where " + PCATEGORY + " like '%" + category
                 + "%'", null);
 
         while (cursor != null && cursor.moveToNext()) {
@@ -244,6 +245,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             product.setPname(cursor.getString(cursor.getColumnIndex(PNAME)));
             product.setCategory(cursor.getString(cursor.getColumnIndex(PCATEGORY)));
             product.setPprice(cursor.getInt(cursor.getColumnIndex(PPRICE)));
+
+            String isAdded = cursor.getString(cursor.getColumnIndex(CPID));
+            Log.d(TAG, "isAddede: " + isAdded);
+
+            if (isAdded == null)
+                product.setAdded(false);
+            else
+                product.setAdded(true);
+
+            CartModel cartModel=new CartModel();
+
 
             productList.add(product);
         }
@@ -469,21 +481,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-
-    public ArrayList<ProductModel> getAllPidForDisableButton(int userId) {
-        ArrayList<ProductModel> cartList = new ArrayList<>();
-
-        String selectQuery = "SELECT * FROM " + TABLE_PRODUCTS + " LEFT "
-                + " JOIN " + TABLE_CART
-                + " ON " + CPID + " = " + PID + " JOIN " + TABLE_USER
-                + " ON " + COLUMN_USER_ID + " = " + CUID + " WHERE " + CUID + " = " + userId;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        cursor.close();
-        db.close();
-        return cartList;
-
-    }
 
 }

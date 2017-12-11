@@ -117,6 +117,14 @@ public class ProductAdapter extends BaseAdapter {
             viewHolder.name.setText(ma.getPname().toString());
             viewHolder.cost.setText(String.valueOf(ma.getPprice()));
 
+            if (ma.isAdded()) {
+                //if add to cart button is pressed once in ListView then add to cart button is disabled
+                viewHolder.addtocart.setEnabled(false);
+                viewHolder.addtocart.setText("Added");
+            } else {
+                viewHolder.addtocart.setEnabled(true);
+            }
+
 
             viewHolder.addtocart.setOnClickListener(new View.OnClickListener() {
                 @Override
